@@ -7,7 +7,6 @@ class NumCards extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      range: 0,
       randomNumberList: [],
     };
   }
@@ -31,25 +30,9 @@ class NumCards extends React.Component {
     let value = input.value;
     console.log(`entered value: ${value}`);
     this.setState({
-      range: value,
-      randomNumberList: this.generate(value),
+      randomNumberList: value.split(','),
     });
   }
-
-
-  generate(range) {
-    let randomNumberList = [];
-    let randomNumber;
-    while (range > 0) {
-      //let digits = console.log(Math.pow(10, range.toString().length));
-      randomNumber = parseInt(Math.random() * 10);
-      randomNumberList.push(randomNumber);
-      range--;
-    }
-
-    return randomNumberList;
-  }
-
 
   showFilterOdd() {
     console.log('odd filter');
