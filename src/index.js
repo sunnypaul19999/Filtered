@@ -19,9 +19,9 @@ class NumCards extends React.Component {
   componentDidMount() {
     let generateNumber = document.querySelector(`.generate-number>button`);
     generateNumber.addEventListener('click', this.generateOnButtonClick.bind(this));
-    let odd = document.querySelector(`.options>button[id="oddbutton"]`);
+    let odd = document.querySelector(`.options>button[data-testid="oddbutton"]`);
     odd.addEventListener('click', this.showFilterOdd.bind(this));
-    let even = document.querySelector(`.options>button[id="evenbutton"]`);
+    let even = document.querySelector(`.options>button[data-testid="evenbutton"]`);
     even.addEventListener('click', this.showFilterEven.bind(this));
   }
 
@@ -61,11 +61,15 @@ class NumCards extends React.Component {
     ReactDOM.render(this.createNumCards('even'), document.querySelector('.filtered'));
   }
 
-  numCard(value) {
+  numCard(value, filter = false) {
+    let idValue = 'originalList';
+    if (filter) {
+      idValue = 'filteredList';
+    }
     return (
       <div className="card num-card" >
         <div className="card-body">
-          <div className="card-title" id={value}>{value}</div>
+          <div className="card-title" data-testid={idValue}>{value}</div>
         </div>
       </div>
     );
@@ -92,11 +96,11 @@ class NumCards extends React.Component {
       this.state.randomNumberList.forEach((value) => {
         if (filter === 'odd') {
           if (value % 2 !== 0) {
-            numCards.push(this.numCard(value));
+            numCards.push(this.numCard(value, true));
           }
         } else if (filter === 'even') {
           if (value % 2 === 0) {
-            numCards.push(this.numCard(value));
+            numCards.push(this.numCard(value, true));
           }
         } else {
           numCards.push(this.numCard(value));
@@ -110,7 +114,7 @@ class NumCards extends React.Component {
 
   render() {
     return (
-      <div className="num-cards" id="originalList">
+      <div className="num-cards">
         {this.createNumCards()}
       </div>
     );
@@ -137,12 +141,12 @@ class Filter extends React.Component {
         <NumCards />
 
         <div className="options">
-          <button id="oddbutton" type="button" className="btn btn-success">ODD</button>
+          <button data-testid="oddbutton" type="button" className="btn btn-success">ODD</button>
 
-          <button id="evenbutton" type="button" className="btn btn-success">EVEN</button>
+          <button data-testid="evenbutton" type="button" className="btn btn-success">EVEN</button>
         </div>
 
-        <div className="filtered num-cards" id="filteredList"></div>
+        <div className="filtered num-cards"></div>
 
       </div>
     );
