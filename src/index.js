@@ -122,7 +122,7 @@ class Filter extends React.Component {
 
   render() {
     return (
-      <div className="container" id="root">
+      <div className="container">
 
         <div className="number-of-input">
           <input data-testid="numberOfInput" className="form-control form-control-lg" type="text"
